@@ -5,10 +5,17 @@ import ReactDOM from "react-dom";
 import Select from "react-select";
 import { NFTStorage, Blob } from 'nft.storage'
 import Header from './Header';
+import { useEffect, useState} from "react"
+import { connectedWallet } from "../utils/interact.js"
 
 require('dotenv').config()
 
 const Notebook = () => {
+
+    //State Variable
+    const [isConnected, setConnectedStatus] = useState(false);
+    const [walletAddress, setWallet] = useState("");
+    const [status, setStatus] = useState("");
 
     const { control, handleSubmit } = useForm();
     const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -16,7 +23,17 @@ const Notebook = () => {
     const onSubmit = async (data) => {
         alert(JSON.stringify(data));
         mintNote(data)
+        connectWalletPressed();
     };
+
+    const connectWalletPressed = async () => {
+        const walletResponse = await connectedWallet();
+        setConnectedStatus(walletResponse.connectedStatus);
+        setStatus(walletResponse.status);
+        if (isConnected) {
+            setWallet(walletAddress)
+        }
+    }
 
     async function mintNote(data) {
         const apiKey = client_id;
@@ -77,7 +94,7 @@ const Notebook = () => {
                 type="submit"
                 variant="contained"
                 color="primary">
-                Submit
+                Mint Note
             </Button>
         </form>
         </div>
