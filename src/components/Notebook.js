@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller, SubmitHandler} from "react-hook-form";
-import { TextField, Checkbox, Input } from "@material-ui/core";
+import {TextField, Checkbox, Input, Button} from "@material-ui/core";
 import ReactDOM from "react-dom";
 import Select from "react-select";
 import { NFTStorage, Blob } from 'nft.storage'
@@ -34,26 +34,26 @@ const Notebook = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
 
             <Controller
-                name="firstName"
+                name="from"
                 control={control}
                 defaultValue=""
                 render={({ field }) =>
                     <TextField
                         id="outlined-multiline-static"
-                        label="First Name"
+                        label="From:"
                         rows={1}
                         variant="outlined"
                     {...field} />}
             />{'  '}
 
             <Controller
-                name="lastName"
+                name="to"
                 control={control}
                 defaultValue=""
                 render={({ field }) =>
                     <TextField
                         id="outlined-multiline-static"
-                        label="Last Name"
+                        label="To:"
                         rows={1}
                         variant="outlined"
                         {...field} />}
@@ -66,14 +66,19 @@ const Notebook = () => {
                 render={({ field }) =>
                     <TextField
                         id="outlined-multiline-static"
-                        label="Note"
+                        label="Note:"
                         multiline
-                        rows={4}
+                        rows={10}
                         variant="outlined"
                         {...field} />}
             /><br/><br/>
 
-            <input type="submit" />
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary">
+                Submit
+            </Button>
         </form>
         </div>
 
